@@ -15,5 +15,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: DOCKER_REPOSITORY
+          repository: safernandez666/test
           tags: latest
