@@ -1,26 +1,32 @@
-name: Docker registry
+name: Deploy to docker hub
 
-on: [push]
+on:
+   push:
+     branches:    
+      - main
+     tags:
+       - 'v*'
 
 jobs:
-  github:
-    runs-on: ubuntu-latest    
+  build:
+    runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
 
-      - name: Login to github registry
+      - name: Login to docker hub
+        if: success()
         uses: actions-hub/docker/login@master
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
 
-      - name: Build :latest
+      - name: Build image
         if: success()
-        run: docker build -t docker.pkg.github.com/${{ github.repository }}/app:latest .
-        
-      - name: Push to docker hub :latest
+        run: docker build -t ${GITHUB_REPOSITORY}:${IMAGE_TAG} .
+
+      - name: Push to docker registry
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}:latest
+          args: push ${GITHUB_REPOSITORY}:${IMAGE_TAG}
