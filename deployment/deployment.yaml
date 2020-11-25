@@ -17,5 +17,6 @@ spec:
       containers:
       - name: nginx
         image: safernandez666/okteto:latest
-        ports:
+        imagePullPolicy: Always
+	ports:
         - containerPort: 80
