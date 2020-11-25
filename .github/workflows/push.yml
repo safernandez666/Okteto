@@ -31,8 +31,8 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          repository: safernandez666/okteto
-          tags: latest
+          tags: safernandez666/okteto:latest 
+  
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
