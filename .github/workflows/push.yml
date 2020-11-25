@@ -35,23 +35,20 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-  devflow:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@master
       
-    - uses: okteto/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    
-    - name: "Activate personal namespace"
-      uses: okteto/namespace@master
-      with:
-        name: safernandez666
+      - name: checkout
+        uses: actions/checkout@master
         
-    - name: "Create deployment"
-      uses: okteto/apply@master
-      with:
-        manifest: deployment/deployment.yaml
+      - uses: okteto/login@master
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+      
+      - name: "Activate personal namespace"
+        uses: okteto/namespace@master
+        with:
+          name: safernandez666
+          
+      - name: "Create deployment"
+        uses: okteto/apply@master
+        with:
+          manifest: deployment/deployment.yaml
