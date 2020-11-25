@@ -1,1 +1,16 @@
-# Okteto
+# K8S on Okteto
+
+Build the Docker Image, Publish on Dockerhub and Deploy on Okteto.
+
+### Base 64 Config okteto-kube.conf
+
+```bash
+cat okteto-kube.config | base64
+```
+Complete the Secret's Tab on GitHub
+
+### Secret's
+
+<p align="center">
+<img src="screenshots/Okteto.jpg" width="400" >
+</p>
