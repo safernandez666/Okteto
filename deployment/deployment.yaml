@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: safernandez666/okteto:${{ github.sha }}
+        image: safernandez666/okteto:latest 
         ports:
         - containerPort: 80
-        imagePullPolicy: Always
+        imagePullPolicy: "Always"
 ---
 
 apiVersion: v1
