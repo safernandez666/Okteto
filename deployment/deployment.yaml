@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: safernandez666/okteto:latest 
+        image: safernandez666/okteto:${{ github.sha }}
         ports:
         - containerPort: 80
         imagePullPolicy: Always
