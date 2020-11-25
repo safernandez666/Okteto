@@ -13,3 +13,17 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
+
+    - uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    
+    - name: "Activate personal namespace"
+      uses: okteto/namespace@master
+      with:
+        name: safernandez666
+
+    - name: "Create deployment"
+      uses: okteto/apply@master
+      with:
+        manifest: deployment/deployment.yaml
