@@ -31,7 +31,6 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: safernandez666/okteto:latest 
           tags: safernandez666/okteto:${{ github.sha }} 
             
 
