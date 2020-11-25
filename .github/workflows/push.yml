@@ -31,7 +31,8 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: safernandez666/okteto:${{ github.sha }}, safernandez666/okteto:latest
+          tag_with_sha: true
+          tags: safernandez666/okteto:latest
             
 
       - name: Image digest
