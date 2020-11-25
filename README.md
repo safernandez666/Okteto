@@ -12,11 +12,11 @@ Complete the Secret's Tab on GitHub with Dockerhub Username & Passowrd and Kube 
 ## Secret's
 
 <p align="center">
-<img src="screenshots/Okteto.jpg" width="400" >
+<img src="screenshots/Okteto.jpg" width="600" >
 </p>
 
-## GitHub Actions Running
+## Running
 
 <p align="center">
-<img src="screenshots/Actions.jpg" width="400" >
+<img src="screenshots/Actions.jpg" width="600" >
 </p>
