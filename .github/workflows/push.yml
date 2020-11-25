@@ -14,16 +14,16 @@ jobs:
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
 
-    - uses: okteto/login@master
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    
-    - name: "Activate personal namespace"
-      uses: okteto/namespace@master
+        args: set image --record deployment/deployment nginx=safernandez666/okteto:${{ github.sha }}
+    - name: verify deployment
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBECTL_VERSION: "1.15"
       with:
-        name: safernandez666
-
-    - name: "Create deployment"
-      uses: okteto/apply@master
-      with:
-        manifest: deployment/deployment.yaml
+        args: '"rollout status deployment/deployment"'
