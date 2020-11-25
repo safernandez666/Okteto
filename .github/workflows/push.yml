@@ -1,4 +1,4 @@
-name: CI to Docker Hub
+name: CI
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     
-      - name: Check Out Repo 
+      - name: Check Out Repository 
         uses: actions/checkout@v2
 
       - name: Login to Docker Hub
@@ -20,11 +20,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Set up Docker Buildx
+      - name: Set up Docker Build
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Build and push
+      - name: Build and Push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -35,3 +35,25 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  devflow:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@master
+        
+      - uses: okteto/login@master
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+      
+      - name: "Activate personal namespace"
+        uses: okteto/namespace@master
+        with:
+          name: safernandez666
+
+      - name: "Create deployment"
+        uses: okteto/apply@master
+        with:
+          manifest: deployment/deployment.yaml

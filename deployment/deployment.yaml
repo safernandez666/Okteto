@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: safernandez666/nginx:latest
+        image: safernandez666/okteto:latest
         ports:
         - containerPort: 80
