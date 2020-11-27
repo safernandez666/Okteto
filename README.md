@@ -28,7 +28,7 @@ It is important that we generate the first deployment manually, with this comman
 ```bash
 export KUBECONFIG=$HOME/Downloads/okteto-kube.config:${KUBECONFIG:-$HOME/.kube/config}
 
-kubectl apply -f ./deployment/deployment.yaml4
+kubectl apply -f ./deployment/deployment.yaml
 ```
 
 ## Checking the Cluster
