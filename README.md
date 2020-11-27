@@ -1,21 +1,21 @@
 # K8S on Okteto with GitHub Actions
 
-Build the Docker Image, Publish on Dockerhub and Deploy on Okteto.
+Create a completely free CI / CD Pipeline. To orchestrate we will use GitHub Actions and [Okteto](okteto.com) as Infrastructure for our dockers. Build the Docker Image, Publish on Dockerhub and Deploy on Kubernetes.
 
-## Base 64 Config okteto-kube.conf
+## Configuration 
 
 ```bash
 cat okteto-kube.config | base64
 ```
 Complete the Secret's Tab on GitHub with Dockerhub Username & Passowrd and Kube Config. You must download the configuration file.
 
-## Secret's
+## Secret's on GitHub
 
 <p align="center">
 <img src="screenshots/Okteto.jpg" width="600" >
 </p>
 
-## Running
+## Pipeline 
 
 <p align="center">
 <img src="screenshots/Actions.jpg" width="600" >
