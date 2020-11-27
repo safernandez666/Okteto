@@ -1,3 +1,19 @@
-FROM nginx:1.19-alpine
+#Use the Python base image with Alpine Linux
+FROM python:alpine
 
-ADD index.html /usr/share/nginx/html
+#Set a default directory for application install
+WORKDIR /usr/src/app
+
+#Upgrade pip
+RUN pip install --upgrade pip
+
+#Install python modules and don't cache install files to save space
+RUN pip install --no-cache-dir flask flask-api ifaddr
+
+#Copy the application to the working directory
+COPY app.py ./
+ADD static ./static
+ADD template ./template
+
+#Start the website
+CMD [ "python", "app.py"]
