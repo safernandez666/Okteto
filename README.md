@@ -7,7 +7,7 @@ Build the Docker Image, Publish on Dockerhub and Deploy on Okteto.
 ```bash
 cat okteto-kube.config | base64
 ```
-Complete the Secret's Tab on GitHub with Dockerhub Username & Passowrd and Kube Config.
+Complete the Secret's Tab on GitHub with Dockerhub Username & Passowrd and Kube Config. You must download the configuration file.
 
 ## Secret's
 
