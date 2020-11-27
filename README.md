@@ -1,6 +1,6 @@
 # K8S on Okteto with GitHub Actions
 
-Create a completely free CI / CD Pipeline. To orchestrate we will use GitHub Actions and [Okteto](okteto.com) as Infrastructure for our dockers. Build the Docker Image, Publish on Dockerhub and Deploy on Kubernetes.
+Create a completely free CI \ CD Pipeline. To orchestrate we will use GitHub Actions and [Okteto](okteto.com) as Infrastructure. Build the docker image, publish on Dockerhub and deploy on Kubernetes.
 
 ## Configuration 
 
@@ -38,6 +38,7 @@ The first command I retrieve the pods from the deployment. Then I make the queri
 <p align="center">
 <img src="screenshots/Kubectl.jpg" width="600" >
 </p>
+
 
 The Website
 
