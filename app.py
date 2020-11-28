@@ -4,8 +4,6 @@ import socket
 
 app = Flask(__name__,template_folder='template')
 
-print(socket.gethostname())
-
 @app.route('/')
 def index():
     hostname = socket.gethostname()
