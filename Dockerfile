@@ -12,8 +12,8 @@ RUN pip install --no-cache-dir flask flask-api ifaddr
 
 #Copy the application to the working directory
 COPY app.py ./
-ADD static ./static
-ADD template ./template
+COPY static ./static
+COPY template ./template
 
 #Start the website
 CMD [ "python", "app.py"]
