@@ -4,8 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Publish to Registry
+    - name: CheckOut GitHub
+      uses: actions/checkout@master
+
+    - name: Build & Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: safernandez666/okteto
