@@ -1,36 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: flaskapp
   labels:
-    app: nginx
+    app: app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: app
   template:
     metadata:
       labels:
-        app: nginx
+        app: app
     spec:
       containers:
-      - name: nginx
+      - name: app
         image: safernandez666/okteto:latest 
         ports:
         - containerPort: 80
-        imagePullPolicy: "Always"
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-deployment
+  name: flaskapp
 spec:
   type: LoadBalancer 
   ports:
     - name: http
       port: 80
   selector:
-    app: nginx
+    app: app
 
