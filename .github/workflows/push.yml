@@ -4,10 +4,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: CheckOut GitHub
-      uses: actions/checkout@master
-
-    - name: Build & Publish to Registry
+    - uses: actions/checkout@master
+    - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: safernandez666/okteto
@@ -22,6 +20,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: set image --record deployment/nginx-deployment nginx=safernandez666/okteto:${{ github.sha }}
+    
     - name: Verify Deployment
       uses: steebchen/kubectl@master
       env:

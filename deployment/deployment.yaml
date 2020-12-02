@@ -3,22 +3,23 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: app
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: app
+      app: nginx
   template:
     metadata:
       labels:
-        app: app
+        app: nginx
     spec:
       containers:
-      - name: app
+      - name: nginx
         image: safernandez666/okteto:latest 
         ports:
         - containerPort: 80
+        imagePullPolicy: "Always"
 ---
 
 apiVersion: v1
@@ -31,5 +32,4 @@ spec:
     - name: http
       port: 80
   selector:
-    app: app
-
+    app: nginx
