@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flaskapp
+  name: nginx
   labels:
     app: app
 spec:
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flaskapp
+  name: nginx
 spec:
   type: LoadBalancer 
   ports:
