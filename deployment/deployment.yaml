@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: flaskapp-deployment
   labels:
-    app: nginx
+    app: flaskapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: flaskapp
   template:
     metadata:
       labels:
-        app: nginx
+        app: flaskapp
     spec:
       containers:
-      - name: nginx
+      - name: flaskapp
         image: safernandez666/okteto:latest 
         ports:
         - containerPort: 80
@@ -25,11 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-deployment
+  name: flaskapp-deployment
 spec:
   type: LoadBalancer 
   ports:
     - name: http
       port: 80
   selector:
-    app: nginx
+    app: flaskapp
