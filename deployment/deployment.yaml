@@ -33,3 +33,5 @@ spec:
       port: 80
   selector:
     app: flaskapp
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
