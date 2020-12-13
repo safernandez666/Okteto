@@ -4,6 +4,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: AppThreat/sast-scan-action@master
+      with:
+        type: "python"
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: reports
+        path: reports
+        
     - uses: actions/checkout@master
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -41,7 +50,7 @@ jobs:
         KUBECTL_VERSION: "1.15"
       with:
         args: '"rollout status deployment/flaskapp-deployment"'
-        
+
     - name: ZAP Scan
       uses: zaproxy/action-baseline@v0.4.0
       with:
