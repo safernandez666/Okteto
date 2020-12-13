@@ -16,11 +16,12 @@ spec:
     spec:
       containers:
       - name: flaskapp
-        image: safernandez666/okteto:latest 
+        image: safernandez666/okteto:latest
+        imagePullPolicy: Always 
         ports:
         - containerPort: 80
-        imagePullPolicy: "Always"
----
+
+----
 
 apiVersion: v1
 kind: Service
@@ -33,5 +34,3 @@ spec:
       port: 80
   selector:
     app: flaskapp
-  annotations:
-    dev.okteto.com/auto-ingress: "true"
