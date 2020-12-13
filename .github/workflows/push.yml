@@ -13,7 +13,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
-
+  AquaSec:
+    steps:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
@@ -26,7 +27,8 @@ jobs:
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: 'trivy-results.sarif'
-
+  Okteto:
+    steps:
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
