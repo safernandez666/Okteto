@@ -13,9 +13,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
-  aquaSec:
-    runs-on: ubuntu-latest
-    steps:
+
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
@@ -28,9 +26,7 @@ jobs:
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: 'trivy-results.sarif'
-  okteto:
-    runs-on: ubuntu-latest
-    steps:
+
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
@@ -45,3 +41,8 @@ jobs:
         KUBECTL_VERSION: "1.15"
       with:
         args: '"rollout status deployment/flaskapp-deployment"'
+        
+    - name: ZAP Scan
+      uses: zaproxy/action-baseline@v0.4.0
+      with:
+        target: 'https://flaskapp-deployment-safernandez666.cloud.okteto.net/'
