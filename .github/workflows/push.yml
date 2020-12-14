@@ -28,10 +28,10 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
 
-   - name: kube-score check
-      uses: piraces/kube-score-ga@v0.1.1
-      with:
-        manifests-folders: './deployment/*.yaml'
+    - name: kube-score check
+        uses: piraces/kube-score-ga@v0.1.1
+        with:
+          manifests-folders: './deployment/*.yaml'
 
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
