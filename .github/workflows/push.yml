@@ -1,7 +1,7 @@
 name: Publish To Docker & Okteto
 on: [push]
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
 
@@ -14,11 +14,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
-        
-  Image Security:
-    runs-on: ubuntu-latest
-    needs:[build]
-    
+
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
