@@ -1,12 +1,3 @@
-on: push
-name: Find Secrets
-jobs:
-  main:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: max/secret-scan@master
-
 name: Publish To Docker & Okteto
 on: [push]
 
@@ -14,6 +5,8 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: max/secret-scan@master
 
     - uses: actions/checkout@master
     - name: Publish to Registry
