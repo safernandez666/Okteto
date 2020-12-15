@@ -1,3 +1,12 @@
+on: push
+name: Find Secrets
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: max/secret-scan@master
+
 name: Publish To Docker & Okteto
 on: [push]
 
@@ -15,7 +24,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
-      uses: max/secret-scan@master
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
