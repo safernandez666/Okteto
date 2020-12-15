@@ -5,8 +5,9 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: max/secret-scan@master
+    - uses: actions/checkout@master
+    - name: trufflehog-actions-scan
+      uses: edplato/trufflehog-actions-scan@master
 
     - uses: actions/checkout@master
     - name: Publish to Registry
