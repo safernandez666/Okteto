@@ -15,6 +15,13 @@ jobs:
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
 
+    - name: Run Yelp's detect-secrets
+      uses: RobertFischer/detect-secrets-action@v2.0.0
+    - name: Commit back .secrets.baseline (if it was missing)
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "build(detect-secrets): Commit the newly-generated .secrets.baseline file"
+
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
