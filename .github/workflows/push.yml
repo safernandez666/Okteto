@@ -5,12 +5,33 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: trufflehog-actions-scan
-      uses: edplato/trufflehog-actions-scan@master
+    ##########################
+    # Checkout the code base #
+    ##########################
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        scanArguments: "--regex --entropy=False --max_depth=5 --rules /regexes.json" # Add custom options here*
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
+    ################################
+    # Run Linter against code base #
+    ################################
+    - name: Lint Code Base
+      uses: github/super-linter@v3
+      env:
+        VALIDATE_ALL_CODEBASE: false
+        DEFAULT_BRANCH: master
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    #################################
+    # Security scan for credentials #
+    #################################
+    - name: Detect Secrets
+      uses: RobertFischer/detect-secrets-action@v2.0.0
+    - name: Commit back .secrets.baseline (if it was missing)
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "build(detect-secrets): Commit the newly-generated .secrets.baseline file"
 
     - uses: actions/checkout@master
     - name: Publish to Registry
