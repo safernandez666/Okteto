@@ -16,7 +16,7 @@ jobs:
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
 
-    - name: Secrets Scan
+    - name: Secrets Scan Master
       uses: actions/checkout@v2
       uses: max/secret-scan@master
 
