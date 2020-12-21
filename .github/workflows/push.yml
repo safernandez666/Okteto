@@ -26,9 +26,10 @@ jobs:
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
     ##########################
-    #     SAST Analisys      #
+    #     Detect Secrets     #
     ##########################
-    
+    - name: Detect Secrets
+      uses: evanextreme/detect-secrets-action@1.0.0
     ##########################
     #       Trivy Scan       #
     ##########################
