@@ -8,31 +8,6 @@ jobs:
     ##########################
     # Checkout the code base #
     ##########################
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    ################################
-    # Run Linter against code base #
-    ################################
-    - name: Lint Code Base
-      uses: github/super-linter@v3
-      env:
-        VALIDATE_ALL_CODEBASE: false
-        DEFAULT_BRANCH: master
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    #################################
-    # Security scan for credentials #
-    #################################
-    - name: Detect Secrets
-      uses: RobertFischer/detect-secrets-action@v2.0.0
-    - name: Commit back .secrets.baseline (if it was missing)
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "build(detect-secrets): Commit the newly-generated .secrets.baseline file"
-
     - uses: actions/checkout@master
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
@@ -42,7 +17,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ./Dockerfile
         tags: "latest,${{ github.sha }}"
-
+    ##########################
+    #       Trivy Scan       #
+    ##########################
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
@@ -55,7 +32,9 @@ jobs:
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: 'trivy-results.sarif'
-
+    ##########################
+    #  Deploy K8S to Okteto  #
+    ##########################
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
@@ -70,7 +49,9 @@ jobs:
         KUBECTL_VERSION: "1.15"
       with:
         args: '"rollout status deployment/flaskapp-deployment"'
-
+    ##########################
+    #      DAST Analisys     #
+    ##########################
     - name: ZAP Scan
       uses: zaproxy/action-baseline@v0.4.0
       with:
