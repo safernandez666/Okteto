@@ -48,6 +48,11 @@ jobs:
     ##########################
     #  Deploy K8S to Okteto  #
     ##########################
+    - name: Login
+      uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
     - name: Activate Namespace
       uses: okteto/namespace@master
       with:
@@ -58,7 +63,7 @@ jobs:
       with:
         namespace: safernandez666
         manifest: deployment/deployment.yaml
-        
+
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
