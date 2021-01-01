@@ -31,18 +31,6 @@ jobs:
     - name: Detect Secrets
       uses: evanextreme/detect-secrets-action@1.0.0
     ##########################
-    #     SAST Analisys      #
-    ##########################
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    ##########################
     #       Trivy Scan       #
     ##########################
     - name: Run Trivy vulnerability scanner
@@ -60,6 +48,17 @@ jobs:
     ##########################
     #  Deploy K8S to Okteto  #
     ##########################
+    - name: Activate Namespace
+      uses: okteto/namespace@master
+      with:
+        namespace: safernandez666
+    
+    - name: Deploy App
+      uses: okteto/apply@master
+      with:
+        namespace: safernandez666
+        manifest: deployment/deployment.yaml
+        
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
