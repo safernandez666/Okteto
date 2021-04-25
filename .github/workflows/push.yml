@@ -48,21 +48,6 @@ jobs:
     ##########################
     #  Deploy K8S to Okteto  #
     ##########################
-    - uses: actions/checkout@master
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: safernandez666/okteto
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ./Dockerfile
-        tags: "latest,${{ github.sha }}"
-
-    - name: Activate Namespace
-      uses: okteto/namespace@master
-      with:
-        namespace: safernandez666
-
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
