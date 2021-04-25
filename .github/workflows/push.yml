@@ -48,28 +48,27 @@ jobs:
     ##########################
     #  Deploy K8S to Okteto  #
     ##########################
-    - name: Login
-      uses: okteto/login@master
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
+        name: safernandez666/okteto
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: ./Dockerfile
+        tags: "latest,${{ github.sha }}"
 
     - name: Activate Namespace
       uses: okteto/namespace@master
       with:
         namespace: safernandez666
-    
-    - name: Deploy App
-      uses: okteto/apply@master
-      with:
-        namespace: safernandez666
-        manifest: deployment/deployment.yaml
 
     - name: Deploy to Cluster
       uses: steebchen/kubectl@master
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: set image --record deployment/flaskapp-deployment flaskapp=safernandez666/okteto:${{ github.sha }}
+        args: set image --record deployment/nginx-deployment nginx=safernandez666/okteto:${{ github.sha }}
     
     - name: Verify Deployment
       uses: steebchen/kubectl@master
@@ -77,7 +76,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         KUBECTL_VERSION: "1.15"
       with:
-        args: '"rollout status deployment/flaskapp-deployment"'
+        args: '"rollout status deployment/nginx-deployment"'
     ##########################
     #      DAST Analisys     #
     ##########################
